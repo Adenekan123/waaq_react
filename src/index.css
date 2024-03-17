@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;800;900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    background-color: #fffcfa;
+    box-sizing: border-box;
+    /* background: linear-gradient(
+        to bottom,
+        transparent,
+        rgb(var(--background-end-rgb))
+      )
+      rgb(var(--background-start-rgb)); */
+      overflow-x: hidden;
+  }
+  
+  html{
+    font-size: 14px;
+    overflow: visible!important;
+  }
+  
+  .ceo-video{
+    background: radial-gradient(circle, transparent 20%, #fffcfa 20%, #fffcfa 80%, transparent 80%, transparent) 0% 0% / 62px 62px, radial-gradient(circle, transparent 20%, #fffcfa 20%, #fffcfa 80%, transparent 80%, transparent) 31px 31px / 62px 62px, linear-gradient(#fff1dd 2px, transparent 2px) 0px -1px / 31px 31px, linear-gradient(90deg, #fff1dd 2px, #fffcfa 2px) -1px 0px / 31px 31px #fffcfa;
+  background-size: 62px 62px, 62px 62px, 31px 31px, 31px 31px;
+  background-color: #fffcfa;
+  }
+  
+  .splide__arrow{
+    background-color: red!important;
+    width:4rem!important;
+    height: 4rem!important;
+    right: -24px!important;
+  }
+  .splide__arrow svg{
+    fill: white!important;
+  }
+  
+  .splide__arrow--prev {
+    display: none!important;
+  }
+  
+  .triangle-clip-path::before{
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    top: -13px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  @media(max-width:800px) {
+    .splide__arrow{
+  
+      right: -0px!important;
+    }
+  }
+  
+  .swiper-button-next{
+    background-color: red;
+    padding:2rem;
+    color:#fff;
+    border-radius: 50%;
+  }
+  .swiper-button-next::after{
+    color:#fff;
+    font-size: larger!important;
+    font-weight: bold;
+  
+  }
+  
+  button.react-multiple-carousel__arrow {
+    background: rgba(255, 94, 0, 0.8)!important;
+    z-index: 10!important;
+  }
+  button.react-multiple-carousel__arrow:hover {
+    background: rgba(255, 81, 0, 0.8)!important;
+  }
+  .react-multiple-carousel__arrow--right {
+    right: calc(4% + 1px);
+  }
