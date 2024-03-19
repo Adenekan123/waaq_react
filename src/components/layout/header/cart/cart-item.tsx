@@ -7,13 +7,13 @@ import { Body, Heading } from "../../../typography";
 import { useCartContext } from "../../../../contexts";
 
 const CartItem = (item: ICartItem) => {
-  const { addtocart, removefromcart } = useCartContext();
+  const { addToCart, removeFromCart } = useCartContext();
   const { quantity, product } = item;
   return (
     <div className="flex gap-6 bg-orange-100 p-3 rounded-md">
       <div className="product-image border rounded-lg h-32 w-32">
         <img
-          src={`${process.env.NEXT_PUBLIC_IMAGE_HOST}/${
+          src={`${import.meta.env.VITE_IMAGE_HOST}/${
             product && product.images ? product.images[0] : ""
           }`}
           width={"100%"}
@@ -29,7 +29,7 @@ const CartItem = (item: ICartItem) => {
               quantity == 1 ? " opacity-50" : "opacity-100 "
             } text-blue-600 inline-flex items-center justify-center cursor-pointer`}
             onClick={() =>
-              quantity != 1 ? addtocart(product, quantity - 1) : false
+              quantity != 1 ? addToCart.add(product, quantity - 1) : false
             }
           >
             <FaMinus size={8} />
@@ -39,7 +39,7 @@ const CartItem = (item: ICartItem) => {
           </div>
           <div
             className="w-6 h-6 border bg-white border-blue-600 text-blue-600 inline-flex items-center justify-center cursor-pointer"
-            onClick={() => addtocart(product, quantity + 1)}
+            onClick={() => addToCart.add(product, item.quantity + 1)}
           >
             <FaPlus size={8} />
           </div>
@@ -58,7 +58,7 @@ const CartItem = (item: ICartItem) => {
       </div>
       <button
         className=" bg-transparent border-0 outline-0 ml-auto mb-auto"
-        onClick={() => removefromcart(product._id as unknown as number)}
+        onClick={() => removeFromCart.remove(product._id as string)}
       >
         <CgClose size={18} />
       </button>

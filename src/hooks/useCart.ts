@@ -1,8 +1,12 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { ICart, ICartItem } from "../types";
-import { useGetCartItems } from "../lib/react-query/queriesAndMutations";
+import { ICart, ICartItem, IProduct, TUserState } from "../types";
+import {
+  useAddToCartItems,
+  useGetCartItems,
+  useRemoveFromCartItems,
+} from "../lib/react-query/queriesAndMutations";
 
 const inistial_cart_state: ICart = {
   visible: false,
@@ -12,9 +16,47 @@ const inistial_cart_state: ICart = {
   type: "offline",
 };
 
-export const useCart = (type: "online" | "offline") => {
+export const useCart = (type: TUserState) => {
   const [state, setState] = useState(inistial_cart_state);
+
   const { data: cartsData, isLoading: cartsLoading } = useGetCartItems(type);
+
+  const { mutateAsync: addToCartAsync, isPending: addingToCart } =
+    useAddToCartItems();
+
+  const { mutateAsync: removeFromCartAsync, isPending: removingFromCart } =
+    useRemoveFromCartItems();
+
+  const updateCartItems = useCallback((items: ICartItem[]) => {
+    setState((previousState) => ({
+      ...previousState,
+      items,
+    }));
+  }, []);
+
+  const add = useCallback(
+    async (item: IProduct, quantity?: number) => {
+      const newCartItems = await addToCartAsync({
+        type,
+        item,
+        quantity,
+      });
+
+      if (newCartItems && newCartItems.carts.length) {
+        updateCartItems(newCartItems.carts);
+      }
+    },
+    [addToCartAsync, type, updateCartItems]
+  );
+  const remove = useCallback(
+    async (cartid: string) => {
+      const newCartItems = await removeFromCartAsync({ type, cartid });
+      if (newCartItems && newCartItems) {
+        updateCartItems(newCartItems.carts);
+      }
+    },
+    [removeFromCartAsync, type, updateCartItems]
+  );
 
   const toggleCart = useCallback(() => {
     setState((previousState) => ({
@@ -22,12 +64,12 @@ export const useCart = (type: "online" | "offline") => {
       visible: !previousState.visible,
     }));
   }, []);
-  const updateCartItems = useCallback((items: ICartItem[]) => {
-    setState((previousState) => ({
-      ...previousState,
-      items,
-    }));
-  }, []);
+
+  const emptycart = () => {
+    if (type === "offline")
+      localStorage.removeItem(import.meta.env.VITE_CART_KEY as string);
+    updateCartItems([]);
+  };
 
   const getCartQtyAndPrice = useCallback(
     (products: ICartItem[]): { totalQty: number; totalPrice: number } => {
@@ -48,20 +90,29 @@ export const useCart = (type: "online" | "offline") => {
   );
   useEffect(() => {
     if (cartsData && Array.isArray(cartsData)) {
-      const { totalPrice, totalQty } = getCartQtyAndPrice(cartsData);
       setState((prev) => ({
         ...prev,
         items: cartsData,
-        totalPrice,
-        totalQty,
       }));
     }
-  }, [cartsData, getCartQtyAndPrice]);
+  }, [cartsData]);
+
+  useEffect(() => {
+    const { totalPrice, totalQty } = getCartQtyAndPrice(state.items);
+    setState((prev) => ({
+      ...prev,
+      totalPrice,
+      totalQty,
+    }));
+  }, [state.items, getCartQtyAndPrice]);
 
   return {
     state,
     cartsLoading,
     updateCartItems,
     toggleCart,
+    addToCart: { add, addingToCart },
+    removeFromCart: { remove, removingFromCart },
+    emptycart,
   };
 };

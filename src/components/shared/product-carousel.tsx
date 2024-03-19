@@ -1,5 +1,5 @@
 "use client";
-import { IProductCard } from "../../types";
+import { IProduct } from "../../types";
 import { ProductCard } from "./product-card";
 
 import Carousel from "react-multi-carousel";
@@ -25,7 +25,7 @@ const responsive = {
   },
 };
 
-export const ProductCarousel = ({ products }: { products: IProductCard[] }) => {
+export const ProductCarousel = ({ products }: { products: IProduct[] }) => {
   return (
     <div className="relative">
       {/* <Splide
@@ -58,9 +58,9 @@ export const ProductCarousel = ({ products }: { products: IProductCard[] }) => {
           infinite={true}
           itemClass="px-3 h-full"
         >
-          {products.map((product) => (
+          {products.map((product,index) => (
             // <SwiperSlide key={product._id + "swiper"}>
-            <ProductCard {...product} />
+            <ProductCard key={'product'+index} {...product} />
             // </SwiperSlide>
           ))}
         </Carousel>

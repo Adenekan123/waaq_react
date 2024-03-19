@@ -1,29 +1,45 @@
-import { useState } from "react";
+import {
+  useCheckoutCartItems,
+  useCheckoutVisitorCartItems,
+} from "../lib/react-query/queriesAndMutations";
+import { useCartContext } from "../contexts";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
+import { IVisitor } from "../types";
 
 const useCheckout = () => {
-  // const { state, emptycart } = useCartContext();
+  const { state, emptycart } = useCartContext();
+  const {
+    mutateAsync: checkoutAsync,
+    isPending: checkingOut,
+    isSuccess: checkoutSuccess,
+    error: checkoutError,
+  } = useCheckoutCartItems();
+  const {
+    mutateAsync: checkoutVisitorAsync,
+    isPending: checkingOutVisitorItems,
+    isSuccess: checkingOutSuccess,
+    error: checkingOutError,
+  } = useCheckoutVisitorCartItems();
 
-  const [status, setStatus] = useState({ loading: false, success: false });
-
-  const checkout_local = async () => {
-    try {
-      console.log("test checkout");
-    } catch (err) {
-      console.log(err);
-    }
+  const checkout_local = async (user: IVisitor) => {
+    await checkoutVisitorAsync({ user, items: state.items });
   };
+  const checkout = async () => await checkoutAsync(state.items);
 
-  const chackout = async () => {
-    setStatus((prev) => ({ ...prev, loading: true }));
-    try {
-      console.log("test checkout");
-    } catch (err) {
-      console.log(err);
-      setStatus((prev) => ({ ...prev, loading: false }));
+  useEffect(() => {
+    if (checkoutSuccess || checkingOutSuccess) {
+      emptycart();
+      toast.success("Checkout Successful");
     }
-  };
+    if (checkoutError || checkingOutError)
+      toast.success("Unable to checkout items, try again");
+  }, [checkoutSuccess, checkingOutSuccess, checkoutError, checkingOutError]);
 
-  return { chackout, checkout_local, status };
+  return {
+    chackout: { init: checkout, loading: checkingOut },
+    checkout_local: { init: checkout_local, loading: checkingOutVisitorItems, success:checkingOutSuccess },
+  };
 };
 
 export default useCheckout;

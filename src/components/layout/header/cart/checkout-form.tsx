@@ -1,5 +1,5 @@
 "use client";
-import React, {useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CgClose } from "react-icons/cg";
 import useCheckout from "../../../../hooks/useCheckout";
 import { Heading } from "../../../typography";
@@ -15,13 +15,18 @@ const initial_state = {
 
 const CheckoutForm = ({ close }: { close: () => void }) => {
   const [state, setState] = useState(initial_state);
-  const { checkout_local, status } = useCheckout();
+  const { checkout_local } = useCheckout();
 
-  const update = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const update = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setState({ ...state, [name]: value });
   };
 
+  useEffect(() => {
+    if (checkout_local.success) close();
+  }, [checkout_local.success, close]);
 
   return (
     <div className="absolute left-0 top-0 w-full h-full bg-slate-50/80 flex items-center p-6">
@@ -95,9 +100,9 @@ const CheckoutForm = ({ close }: { close: () => void }) => {
           <CustomButton
             title="Done"
             styles="shadow-lg font-bold"
-            loading={status.loading}
-            disabled={status.loading}
-            whenClicked={() => checkout_local()}
+            loading={checkout_local.loading}
+            disabled={checkout_local.loading}
+            whenClicked={() => checkout_local.init(state)}
           />
         </div>
       </form>

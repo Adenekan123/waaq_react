@@ -1,11 +1,11 @@
 "use client";
 import { ProductRating } from "./product-rating";
-// import { useSession } from "next-auth/react";
-import { ICartItem, IProductCard } from "../../types";
+import { ICartItem, IProduct } from "../../types";
 import { Link } from "react-router-dom";
 import { CustomButton } from "../ui";
 import { Body, Heading } from "../typography";
 import { useCartContext } from "../../contexts";
+import { checkAuthUser } from "../../API/auth";
 
 export const ProductCard = ({
   _id,
@@ -14,16 +14,15 @@ export const ProductCard = ({
   tag,
   price,
   ratings,
-}: IProductCard) => {
-  // const { data: session } = useSession();
-  const session = {user:""}
-  const { addtocart, state } = useCartContext();
+}: IProduct) => {
+  const session = checkAuthUser();
+  const { addToCart, state } = useCartContext();
 
   const { curr, prev, discount } = price;
 
   const itemInCart = (productid: string) => {
-    if (!state || !state.products) return;
-    return state.products.find((cart: ICartItem) => {
+    if (!state || !state.items) return;
+    return state.items.find((cart: ICartItem) => {
       if (cart.product && cart.product._id)
         return (cart.product._id as string) === productid;
     });
@@ -37,7 +36,7 @@ export const ProductCard = ({
     >
       <Link to={`/product/${_id}`}>
         <img
-          src={`${import.meta.env.VITEC_IMAGE_HOST}/${images[0]}`}
+          src={`${import.meta.env.VITE_IMAGE_HOST}/${images[0]}`}
           alt="mrsk"
           className="h-72 w-full object-cover"
         />
@@ -85,7 +84,7 @@ export const ProductCard = ({
               : "from-red-500 to-orange-500"
           }
           whenClicked={() => {
-            addtocart(
+            addToCart.add(
               {
                 _id,
                 images,
@@ -93,8 +92,8 @@ export const ProductCard = ({
                 tag,
                 price,
                 ratings,
-              } as IProductCard,
-              itemincart ? itemincart?.quantity + 1 : undefined
+              } as IProduct,
+              itemincart ? itemincart?.quantity + 1 : 1
             );
           }}
         />

@@ -1,10 +1,11 @@
-import {Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { AuthLayout } from "./__auth/AuthLayout";
 import { SignUpForm } from "./__auth/forms/signup";
 import Home from "./__root/pages/Home";
 import RootLayout from "./__root/RootLayout";
 import About from "./__root/pages/About";
 import { LabPage, Partner, Schools } from "./__root/pages/Solutions/pages";
+import Shop from "./__root/pages/Shop";
 
 function App() {
   return (
@@ -16,8 +17,9 @@ function App() {
 
         <Route element={<RootLayout />}>
           <Route index element={<Home />} />
-          <Route path="/about-us" element={<About />} />
-          <Route path="/solutions">
+          <Route path="about-us" element={<About />} />
+          <Route path="shop" element={<Shop />} />
+          <Route path="solutions">
             <Route path="schools" element={<Schools />} />
             <Route path="partner" element={<Partner />} />
             <Route path="lab" element={<LabPage />} />

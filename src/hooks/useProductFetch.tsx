@@ -1,11 +1,8 @@
-import { IProductFilter } from "@/types";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { IProduct, IProductFilter } from "../types";
+import { useGetFilteredProducts } from "../lib/react-query/queriesAndMutations";
 
-const initialProduct = {
-  loading: false,
-  data: [],
-};
 const initialFilter = {
   categories: [],
   skills: [],
@@ -13,31 +10,22 @@ const initialFilter = {
 };
 
 export const useProductFetch = () => {
-  const [products, setProducts] = useState(initialProduct);
+  const [products, setProducts] = useState<IProduct[]>([]);
   const [filter, setFilter] = useState<IProductFilter>(initialFilter);
 
-  const applyFilter = async () => {
-    setProducts((prev) => ({ ...prev, loading: true }));
-    try {
-      const request = await fetch("/api/products", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(filter),
-        cache: "no-cache",
-      });
-      const products = await request.json();
-      if (products === "fetch failed") {
-        setProducts((prev) => ({ ...prev, loading: false }));
-        return toast.error("Poor Network, Check your connection");
-      }
-      setProducts((prev) => ({ ...prev, loading: false, data: products }));
-    } catch (err) {
-      console.log(err);
-      setProducts((prev) => ({ ...prev, loading: false }));
-    }
-  };
+  const { mutateAsync, isPending: loading, error } = useGetFilteredProducts();
 
-  return { filter, setFilter, products,applyFilter };
+  const applyFilter = useCallback(async () => {
+    const products = await mutateAsync(filter);
+    if (products && products.length) setProducts(products);
+    else setProducts([]);
+  }, [mutateAsync, filter]);
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error?.message);
+    }
+  }, [error]);
+
+  return { filter, setFilter, products, applyFilter, loading };
 };

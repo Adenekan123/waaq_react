@@ -114,7 +114,7 @@ export interface ICartItem {
   _id?: string;
   productid?: string;
   quantity: number;
-  product: IProductCard;
+  product: IProduct;
 }
 export interface IVisitor {
   name: string;
@@ -123,6 +123,9 @@ export interface IVisitor {
   address: string;
   state: string;
 }
+export interface IVisitorOrder extends IVisitor {
+  items: IOrderItem[];
+}
 export interface IPartner {
   firstname: string;
   lastname: string;
@@ -130,7 +133,7 @@ export interface IPartner {
   phone: string;
 }
 export interface IOrderItem {
-  productid: IProductCard;
+  productid: string;
   quantity: number;
   totalAmount?: number;
 }
@@ -165,3 +168,27 @@ export interface IUserAuth {
     status: number;
   };
 }
+
+export interface IProduct {
+  _id?: string;
+  categoryid?: string;
+  skillid?: string;
+  name: string;
+  description: string[];
+  tag: string;
+  agerange: string;
+  images: string[];
+  price: { curr: number; prev: number; discount: number };
+  ratings: { rating: number; totalreviews: number };
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+export interface IFilterCriteria {
+  _id?: string;
+  name: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+export type TUserState = "online" | "offline";
