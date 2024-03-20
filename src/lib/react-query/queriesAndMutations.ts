@@ -2,6 +2,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 
 import {
   ICartItem,
+  IOrderItemsState,
   IProduct,
   IProductFilter,
   IUser,
@@ -28,6 +29,7 @@ import {
   getMostLoved,
   getSkills,
 } from "../../API/products";
+import { getOrderItems } from "../../API/orders";
 
 export const useCreateUserAccount = () => {
   return useMutation({
@@ -78,7 +80,7 @@ export const useCheckoutCartItems = () => {
 export const useCheckoutVisitorCartItems = () => {
   return useMutation({
     mutationFn: (value: { user: IVisitor; items: ICartItem[] }) =>
-    checkoutVisitorCartItems(value.user, value.items),
+      checkoutVisitorCartItems(value.user, value.items),
   });
 };
 
@@ -116,5 +118,14 @@ export const useGetProductCategories = () => {
   return useQuery({
     queryKey: ["product_categories"],
     queryFn: () => getCategories(),
+  });
+};
+
+//ORDERS
+
+export const useGetOrderItems = (type: IOrderItemsState) => {
+  return useQuery({
+    queryKey: ["order-items",type],
+    queryFn: () => getOrderItems(type),
   });
 };

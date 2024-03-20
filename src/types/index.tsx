@@ -192,3 +192,12 @@ export interface IFilterCriteria {
 }
 
 export type TUserState = "online" | "offline";
+
+export interface IorderItems {
+  _id?: string;
+  orders: IOrderItem[];
+  totalamount:number;
+  status:string;
+}
+
+export type IOrderItemsState = "pending" | "successfull" | undefined;
