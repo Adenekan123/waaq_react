@@ -44,7 +44,7 @@ export const Filter = ({
       }));
   };
   return (
-    <Container styles="bg-white shadow-lg p-6 md:shadow-inherit sticky top-0 z-[1500]">
+    <Container styles="bg-white shadow-lg p-6 md:shadow-inherit sticky top-0 z-10">
       <div className="flex justify-between items-center">
         <div className="flex gap-4">
           <div>
