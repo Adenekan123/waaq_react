@@ -5,6 +5,7 @@ import {
   IOrderItemsState,
   IProduct,
   IProductFilter,
+  IUSerProfile,
   IUser,
   IVisitor,
   TUserState,
@@ -30,6 +31,7 @@ import {
   getSkills,
 } from "../../API/products";
 import { getOrderItems } from "../../API/orders";
+import { updateUserProfile } from "../../API/profiles";
 
 export const useCreateUserAccount = () => {
   return useMutation({
@@ -122,10 +124,18 @@ export const useGetProductCategories = () => {
 };
 
 //ORDERS
-
 export const useGetOrderItems = (type: IOrderItemsState) => {
   return useQuery({
     queryKey: ["order-items",type],
     queryFn: () => getOrderItems(type),
+  });
+};
+
+
+//PROFILE
+
+export const useUpdateUserProfile= () => {
+  return useMutation({
+    mutationFn: (details: IUSerProfile) => updateUserProfile(details),
   });
 };

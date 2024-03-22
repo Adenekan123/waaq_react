@@ -5,13 +5,14 @@ import { Body, Heading } from "../../components/typography";
 import { CustomButton } from "../../components/ui";
 import { useLoginUserAccount } from "../../lib/react-query/queriesAndMutations";
 import { toast } from "react-toastify";
-import { checkAuthUser } from "../../API/auth";
+import { useUserSession } from "../../contexts/user";
 const initialState = {
   email: "",
   password: "",
 };
 
 export const SignInForm = ({ close }: { close?: () => void }) => {
+  const { session } = useUserSession();
   const [state, setState] = useState(initialState);
   const navigate = useNavigate();
   const update = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,7 +34,7 @@ export const SignInForm = ({ close }: { close?: () => void }) => {
   );
 
   useEffect(() => {
-    if (isSuccess && checkAuthUser()) {
+    if (isSuccess && session?.user) {
       toast.success("Login Successfull");
       navigate("/");
     }
@@ -41,7 +42,7 @@ export const SignInForm = ({ close }: { close?: () => void }) => {
     if (error) {
       toast.error(error.message);
     }
-  }, [isSuccess, error,navigate]);
+  }, [isSuccess, error, session?.user, navigate]);
   return (
     <div
       className={`p-8 ${

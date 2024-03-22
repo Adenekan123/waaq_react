@@ -8,6 +8,7 @@ import { LabPage, Partner, Schools } from "./__root/pages/Solutions/pages";
 import Shop from "./__root/pages/Shop";
 import ProtectedLayout from "./_protected/ProtectedLayout";
 import MyOrders from "./_protected/pages/MyOrders";
+import MyProfile from "./_protected/pages/MyProfile";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
 
           <Route element={<ProtectedLayout />}>
             <Route path="my-orders" element={<MyOrders />} />
+            <Route path="settings" element={<MyProfile />} />
           </Route>
         </Route>
       </Routes>

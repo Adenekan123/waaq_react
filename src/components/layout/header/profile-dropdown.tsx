@@ -10,8 +10,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { useLogoutUserAccount } from "../../../lib/react-query/queriesAndMutations";
 import { removeUser } from "../../../API/auth";
 import { toast } from "react-toastify";
+import { useUserSession } from "../../../contexts/user";
 
 export const ProfileDropdown = () => {
+  const {session} = useUserSession();
   const [hide, setHide] = useState(true);
   const { mutateAsync: signOut, isPending, isSuccess } = useLogoutUserAccount();
  const navigate = useNavigate();
@@ -30,7 +32,7 @@ export const ProfileDropdown = () => {
         className="border-8 border-white rounded-full bg-gradient-to-r from-red-500 to-orange-500 text-white px-2 py-2 0px 1px 1px rgba(0, 0, 0, 0.5) inline-flex items-center gap-x-6"
       >
         <FaUserCircle size={22} />
-        <span>Adenekan</span>
+        <span className="capitalize">{session?.user.name.split(" ")[1]}</span>
         <BsCaretDownFill size={16} />
       </button>
       {hide ? null : (

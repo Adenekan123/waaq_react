@@ -150,23 +150,25 @@ export interface IMyOrderItem {
 export interface IUser {
   firstname: string;
   lastname: string;
-  state: string;
+  state?: string;
   phone: string;
   email: string;
-  address: string;
-  password: string;
+  address?: string;
+  password?: string;
+}
+
+export interface IUSerProfile {
+  name: string;
+  email: string;
+  phone: string;
+  role: string;
+  status: number;
 }
 
 export interface IUserAuth {
   accesToken: string;
   refreshToken: string;
-  user: {
-    name: string;
-    email: string;
-    phone: string;
-    role: string;
-    status: number;
-  };
+  user: IUSerProfile;
 }
 
 export interface IProduct {
@@ -196,8 +198,8 @@ export type TUserState = "online" | "offline";
 export interface IorderItems {
   _id?: string;
   orders: IOrderItem[];
-  totalamount:number;
-  status:string;
+  totalamount: number;
+  status: string;
 }
 
 export type IOrderItemsState = "pending" | "successfull" | undefined;

@@ -1,4 +1,4 @@
-import { IUser, IUserAuth } from "../types";
+import { IUSerProfile, IUser, IUserAuth } from "../types";
 import AxiosInstance from "../lib/axios/config";
 import { AxiosError } from "axios";
 
@@ -44,7 +44,7 @@ export const storeUser = async (user: IUserAuth) => {
 
   return true;
 };
-export const removeUser =  () => {
+export const removeUser = () => {
   const response = localStorage.removeItem(
     import.meta.env.VITE_AUTH_KEY as string
   );
@@ -74,4 +74,14 @@ export const checkAuthUser = () => {
   if (!stringifiedUser) return null;
   const user: IUserAuth = JSON.parse(stringifiedUser);
   return user;
+};
+export const updateAuthUser = (profile: IUSerProfile) => {
+  const stringifiedUser = localStorage.getItem(
+    import.meta.env.VITE_AUTH_KEY as string
+  ) as string;
+  if (!stringifiedUser) return null;
+
+  const user: IUserAuth = JSON.parse(stringifiedUser);
+  const updatedUser = { ...user, user: profile };
+  return storeUser(updatedUser);
 };
