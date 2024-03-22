@@ -34,7 +34,7 @@ export const Modal = ({
       id="default-modal"
       className={`${
         !open ? "hidden" : ""
-      } overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-screen bg-black/80 `}
+      } overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-[500] justify-center items-center w-full md:inset-0 h-screen bg-black/80 `}
     >
       <div className="relative p-4 pt-12 w-full h-full max-h-full flex justify-center items-start">
         {/* <!-- Modal content --> */}
@@ -49,7 +49,7 @@ export const Modal = ({
               data-modal-hide="default-modal"
             >
               <svg
-                className="w-3 h-3"
+                className="w-4 h-4"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

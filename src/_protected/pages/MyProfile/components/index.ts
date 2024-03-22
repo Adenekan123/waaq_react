@@ -1,2 +1,2 @@
-export * from "./PasswordReset";
+export * from "./PasswordtReset";
 export * from "./Profile";
