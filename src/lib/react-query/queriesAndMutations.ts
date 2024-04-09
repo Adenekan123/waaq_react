@@ -28,6 +28,7 @@ import {
   getEducational,
   getFiltered,
   getMostLoved,
+  getSingle,
   getSkills,
 } from "../../API/products";
 import { getOrderItems } from "../../API/orders";
@@ -87,6 +88,12 @@ export const useCheckoutVisitorCartItems = () => {
 };
 
 //PRODUCTS
+export const useGetProduct = (productid: string) => {
+  return useQuery({
+    queryKey: ["product", productid],
+    queryFn: () => getSingle(productid),
+  });
+};
 export const useGetFilteredProducts = () => {
   return useMutation({
     mutationFn: (filterObject: IProductFilter) => getFiltered(filterObject),
@@ -126,15 +133,14 @@ export const useGetProductCategories = () => {
 //ORDERS
 export const useGetOrderItems = (type: IOrderItemsState) => {
   return useQuery({
-    queryKey: ["order-items",type],
+    queryKey: ["order-items", type],
     queryFn: () => getOrderItems(type),
   });
 };
 
-
 //PROFILE
 
-export const useUpdateUserProfile= () => {
+export const useUpdateUserProfile = () => {
   return useMutation({
     mutationFn: (details: IUSerProfile) => updateUserProfile(details),
   });

@@ -17,3 +17,16 @@ AxiosInstance.interceptors.request.use(function (config) {
 });
 
 export default AxiosInstance;
+
+AxiosInstance.interceptors.response.use(
+  response => response,
+  error => {
+    
+  const {status} = error.response;
+  if(status === 401){
+    window.localStorage.removeItem(import.meta.env.VITE_AUTH_KEY);
+    window.location.reload();
+  }
+   return Promise.reject(error);
+ }
+);

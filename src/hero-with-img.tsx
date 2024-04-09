@@ -1,5 +1,6 @@
-import { Body, Container, CustomButton, Heading, Stack } from "@/components/ui";
-import React from "react";
+import { Body, Heading } from "./components/typography";
+import { Container, CustomButton, Stack } from "./components/ui";
+
 
 const HeroWithImg = () => {
   return (

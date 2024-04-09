@@ -9,6 +9,7 @@ import Shop from "./__root/pages/Shop";
 import ProtectedLayout from "./_protected/ProtectedLayout";
 import MyOrders from "./_protected/pages/MyOrders";
 import MyProfile from "./_protected/pages/MyProfile";
+import { Product } from "./__root/pages/Product";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="about-us" element={<About />} />
           <Route path="shop" element={<Shop />} />
+          <Route path="product/:productid" element={<Product />} />
           <Route path="solutions">
             <Route path="schools" element={<Schools />} />
             <Route path="partner" element={<Partner />} />

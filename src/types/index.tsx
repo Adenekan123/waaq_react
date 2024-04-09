@@ -133,7 +133,7 @@ export interface IPartner {
   phone: string;
 }
 export interface IOrderItem {
-  productid: string;
+  productid: IProduct;
   quantity: number;
   totalAmount?: number;
 }

@@ -5,7 +5,7 @@ import { IFilterCriteria, IProduct, IProductFilter } from "../types";
 export const getSingle = async (productid: string) => {
   try {
     return await AxiosInstance.get<IProduct>(
-      `${import.meta.env.VITE_API_PARTNER_BASE_URL}/products/${productid}`
+      `${import.meta.env.VITE_API_BASE_URL}/product/${productid}`
     ).then((res) => res.data);
   } catch (e) {
     const error = e as AxiosError;
@@ -73,3 +73,4 @@ export const getCategories = async () => {
     return Promise.reject(error.response?.data);
   }
 };
+

@@ -115,6 +115,7 @@ export const Filter = ({
                               htmlFor={`${category._id}`}
                             >
                               <input
+                                onChange={() => false}
                                 type="checkbox"
                                 name={`${category.name}`}
                                 id={`${category._id}`}

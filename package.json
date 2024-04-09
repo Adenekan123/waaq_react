@@ -1,5 +1,6 @@
 {
   "name": "waaq_react",
+  "homepage": "https://waaqfusion.com.ng/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,9 +11,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@splidejs/splide-extension-video": "^0.8.0",
     "@tanstack/react-query": "^5.28.0",
     "@types/node": "^20.11.26",
     "axios": "^1.6.7",
+    "embla-carousel-autoplay": "^8.0.0",
+    "embla-carousel-react": "^8.0.0",
     "nanoid": "^5.0.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -22,7 +26,7 @@
     "react-toastify": "^10.0.4"
   },
   "devDependencies": {
-    "@types/react": "^18.2.64",
+    "@types/react": "^18.2.67",
     "@types/react-dom": "^18.2.21",
     "@typescript-eslint/eslint-plugin": "^7.1.1",
     "@typescript-eslint/parser": "^7.1.1",

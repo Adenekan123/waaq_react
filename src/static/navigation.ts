@@ -1,4 +1,5 @@
-import { INavigation } from "@/types";
+import { INavigation } from "../types";
+
 export const navigations:INavigation[] = [
   { title: "home", url: "/" },
   { title: "about us", url: "/about-us" },
