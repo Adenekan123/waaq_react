@@ -1,6 +1,7 @@
 import { Container } from "../../../components/ui";
 
 const PrivacyPolicy = () => {
+
   return (
     <>
     <div className="bg-red-500 p-12"></div>
