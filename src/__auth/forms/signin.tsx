@@ -34,7 +34,7 @@ export const SignInForm = ({ close }: { close?: () => void }) => {
   );
 
   useEffect(() => {
-    if (isSuccess && session?.user) {
+    if (isSuccess) {
       toast.success("Login Successfull");
       navigate("/");
     }

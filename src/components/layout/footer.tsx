@@ -108,28 +108,28 @@ export const Footer = () => {
         </div>
       </Container>
       <Container styles="pb-3">
-        <div className="flex relative w-full">
+        <div className="flex justify-between relative w-full">
           <Body
             title="Copyright © 2023 Waaqfusion, All rights reserved. Powered by Avishkaar."
             styles="text-white text-center lg:text-left"
             type={0.5}
           />
-          {/* <Stack gap="gap-4" styles="">
+          <Stack gap="gap-4" styles="">
             <div className="flex items-center pb-2 border-dashed border-orange-400 border-b text-orange-50 gap-3">
               <BsFillCaretRightFill />
 
-              <Link href={"#"} className="text-sm">
+              <Link to={"terms-and-condition"} className="text-sm">
                 Terms of use
               </Link>
             </div>
             <div className="flex items-center pb-2 border-dashed border-orange-400 border-b text-orange-50 gap-3">
               <BsFillCaretRightFill />
 
-              <Link href={"#"} className="text-sm">
+              <Link to={"privacy-policy"} className="text-sm">
                 Privacy policy
               </Link>
             </div>
-          </Stack> */}
+          </Stack>
         </div>
       </Container>
     </HeroWall>

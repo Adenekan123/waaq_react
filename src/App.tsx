@@ -10,6 +10,8 @@ import ProtectedLayout from "./_protected/ProtectedLayout";
 import MyOrders from "./_protected/pages/MyOrders";
 import MyProfile from "./_protected/pages/MyProfile";
 import { Product } from "./__root/pages/Product";
+import PrivacyPolicy from "./__root/pages/PrivacyPolicy";
+import TermsAndCondion from "./__root/pages/TermsAndCondition";
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
           <Route path="about-us" element={<About />} />
           <Route path="shop" element={<Shop />} />
           <Route path="product/:productid" element={<Product />} />
+          <Route path="privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="terms-and-condition" element={<TermsAndCondion />} />
           <Route path="solutions">
             <Route path="schools" element={<Schools />} />
             <Route path="partner" element={<Partner />} />

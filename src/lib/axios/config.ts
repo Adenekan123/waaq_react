@@ -25,7 +25,7 @@ AxiosInstance.interceptors.response.use(
   const {status} = error.response;
   if(status === 401){
     window.localStorage.removeItem(import.meta.env.VITE_AUTH_KEY);
-    window.location.reload();
+    // window.location.reload();
   }
    return Promise.reject(error);
  }
