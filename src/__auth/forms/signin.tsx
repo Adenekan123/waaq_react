@@ -5,14 +5,12 @@ import { Body, Heading } from "../../components/typography";
 import { CustomButton } from "../../components/ui";
 import { useLoginUserAccount } from "../../lib/react-query/queriesAndMutations";
 import { toast } from "react-toastify";
-import { useUserSession } from "../../contexts/user";
 const initialState = {
   email: "",
   password: "",
 };
 
 export const SignInForm = ({ close }: { close?: () => void }) => {
-  const { session } = useUserSession();
   const [state, setState] = useState(initialState);
   const navigate = useNavigate();
   const update = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,7 +21,7 @@ export const SignInForm = ({ close }: { close?: () => void }) => {
     }));
   }, []);
 
-  const { mutateAsync, isPending, isSuccess, error } = useLoginUserAccount();
+  const { mutateAsync, isPending, isSuccess, error,data } = useLoginUserAccount();
 
   const signInWithCredentials = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
@@ -34,15 +32,15 @@ export const SignInForm = ({ close }: { close?: () => void }) => {
   );
 
   useEffect(() => {
-    if (isSuccess) {
+    if (data && isSuccess) {
       toast.success("Login Successfull");
-      navigate("/");
+      window.location.href = "/"
     }
 
     if (error) {
       toast.error(error.message);
     }
-  }, [isSuccess, error, session?.user, navigate]);
+  }, [isSuccess, error, data, navigate]);
   return (
     <div
       className={`p-8 ${

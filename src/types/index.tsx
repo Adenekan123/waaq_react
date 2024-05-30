@@ -158,6 +158,7 @@ export interface IUser {
 }
 
 export interface IUSerProfile {
+  id?: string;
   name: string;
   email: string;
   phone: string;
@@ -203,3 +204,11 @@ export interface IorderItems {
 }
 
 export type IOrderItemsState = "pending" | "successfull" | undefined;
+
+export interface INotification{
+  _id?: string;
+  userId: string;
+  message: string;
+  createdAt?: string;
+  read?: boolean;
+}

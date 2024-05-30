@@ -9,6 +9,7 @@ import QueryProvider from "./lib/react-query/QueryProvider.tsx";
 import { CartProvider } from "./contexts/cartProvider.tsx";
 import { UserProvider } from "./contexts/user.tsx";
 import ScrollToTop from "./components/shared/scrollToTop.tsx";
+import { NotificationProvider } from "./contexts/notification.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -16,9 +17,11 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <ScrollToTop />
       <QueryProvider>
         <UserProvider>
-          <CartProvider>
-            <App />
-          </CartProvider>
+          <NotificationProvider>
+            <CartProvider>
+              <App />
+            </CartProvider>
+          </NotificationProvider>
         </UserProvider>
       </QueryProvider>
     </BrowserRouter>

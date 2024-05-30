@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+
 import { AuthLayout } from "./__auth/AuthLayout";
 import { SignUpForm } from "./__auth/forms/signup";
 import Home from "./__root/pages/Home";
@@ -13,7 +14,11 @@ import { Product } from "./__root/pages/Product";
 import PrivacyPolicy from "./__root/pages/PrivacyPolicy";
 import TermsAndCondion from "./__root/pages/TermsAndCondition";
 
+
 function App() {
+
+
+  
   return (
     <div className="font-Nunito">
       <Routes>

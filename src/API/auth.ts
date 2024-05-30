@@ -28,7 +28,8 @@ export const loginUserAccount = async (credentials: {
       `${import.meta.env.VITE_API_BASE_URL}/auth/user/login`,
       credentials
     );
-    if (newUSer.status && newUSer.data?.accesToken) storeUser(newUSer.data);
+    if (newUSer.status && newUSer.data?.accesToken)
+      return storeUser(newUSer.data);
   } catch (e) {
     const error = e as AxiosError;
     return Promise.reject(error.response?.data);

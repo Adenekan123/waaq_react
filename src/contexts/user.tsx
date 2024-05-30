@@ -31,14 +31,18 @@ export const UserContext = createContext<TUserSession>({
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [session, setSession] = useState<IUserAuth>();
 
+
   const updateSession = useCallback(() => {
     const session = checkAuthUser();
-    if (session) setSession(session);
+    if (session){
+      setSession(session);
+    } 
   }, []);
 
   useEffect(() => {
     updateSession();
   }, [updateSession]);
+
 
   const value = {
     session,
